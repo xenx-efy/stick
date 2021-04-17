@@ -1,0 +1,41 @@
+name: stick
+recipe: wordpress
+config:
+  php: '7.4'
+  via: nginx
+  webroot: web
+  database: mariadb
+  xdebug: off
+  config:
+    php: .lando/php.ini
+services:
+  node:
+    type: node:14
+    globals:
+      gulp-cli: "latest"
+      bower: "latest"
+      webpack: "latest"
+      npm: "latest"
+  appserver:
+    run:
+      - composer install
+      - cp .env.example .env
+    build_as_root:
+      - curl -sL https://deb.nodesource.com/setup_14.x | bash -
+      - apt-get install -y nodejs
+    overrides:
+      environment:
+        XDEBUG_MODE:
+        PHP_IDE_CONFIG: "serverName=appserver"
+tooling:
+  npm:
+    service: node
+  npx:
+    service: node
+  node:
+    service: node
+  xdebug:
+    description: Loads Xdebug in the selected mode.
+    cmd:
+      - appserver: .lando/xdebug.sh
+    user: root
