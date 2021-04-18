@@ -16,6 +16,11 @@ services:
       bower: "latest"
       webpack: "latest"
       npm: "latest"
+  database:
+    overrides:
+      volumes:
+        - ./backups/mysql:/var/lib/mysql
+
   appserver:
     run:
       - composer install
