@@ -16,13 +16,9 @@ services:
       bower: "latest"
       webpack: "latest"
       npm: "latest"
-  database:
-    overrides:
-      volumes:
-        - ./backups/mysql:/var/lib/mysql
-
   appserver:
-    run:
+    composer_version: 1-latest
+    build:
       - composer install
       - cp .env.example .env
     build_as_root:
