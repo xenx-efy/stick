@@ -2,7 +2,7 @@
 /**
  * WP Emerge configuration.
  *
- * @link https://docs.wpemerge.com/#/framework/configuration
+ * @link    https://docs.wpemerge.com/#/framework/configuration
  *
  * @package MyApp
  */
@@ -28,6 +28,8 @@ return [
 		\MyApp\WordPress\ShortcodesServiceProvider::class,
 		\MyApp\WordPress\ThemeServiceProvider::class,
 		\MyApp\WordPress\WidgetsServiceProvider::class,
+		\MyApp\WordPress\AcfServiceProvider::class,
+		\WPEmergeBlade\View\ServiceProvider::class,
 	],
 
 	/**
@@ -39,19 +41,22 @@ return [
 	 */
 	'routes'              => [
 		'web'   => [
-			'definitions' => __DIR__ . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'web.php',
+			'definitions' => __DIR__ . DIRECTORY_SEPARATOR . 'routes'
+			                 . DIRECTORY_SEPARATOR . 'web.php',
 			'attributes'  => [
 				'namespace' => 'MyApp\\Controllers\\Web\\',
 			],
 		],
 		'admin' => [
-			'definitions' => __DIR__ . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'admin.php',
+			'definitions' => __DIR__ . DIRECTORY_SEPARATOR . 'routes'
+			                 . DIRECTORY_SEPARATOR . 'admin.php',
 			'attributes'  => [
 				'namespace' => 'MyApp\\Controllers\\Admin\\',
 			],
 		],
 		'ajax'  => [
-			'definitions' => __DIR__ . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'ajax.php',
+			'definitions' => __DIR__ . DIRECTORY_SEPARATOR . 'routes'
+			                 . DIRECTORY_SEPARATOR . 'ajax.php',
 			'attributes'  => [
 				'namespace' => 'MyApp\\Controllers\\Ajax\\',
 			],
@@ -117,13 +122,23 @@ return [
 	 * Use absolute paths or leave blank to disable.
 	 * Applies only to the default PhpViewEngine.
 	 */
-	'views'               => [ get_stylesheet_directory(), get_template_directory() ],
+//	'views' => [],
+
+	'blade'    => [
+		'replace_default_engine' => true,
+		'proxy_php_views'        => true,
+		'filter_core_templates'  => true,
+		'options'                => [
+			'cache' => get_stylesheet_directory() . DIRECTORY_SEPARATOR
+			           . 'blade-cache',
+		],
+	],
 
 	/**
 	 * App Core configuration.
 	 */
-	'app_core'            => [
-		'path' => dirname( __DIR__ ),
+	'app_core' => [
+		'path' => dirname(__DIR__),
 		'url'  => get_template_directory_uri(),
 	],
 

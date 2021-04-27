@@ -11,6 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Load helpers.
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'shims.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'content.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'title.php';
+
+$helpers = glob( HELPERS_DIR . '*.php' );
+foreach ( $helpers as $helper ) {
+	if ( ! is_file( $helper ) ) {
+		continue;
+	}
+
+	require $helper;
+}

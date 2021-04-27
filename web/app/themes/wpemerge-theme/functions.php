@@ -11,44 +11,74 @@
  * @package MyApp
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( ! defined('ABSPATH')) {
 	exit;
 }
+
+/**
+ * Paths constants
+ */
+define('APP_ROOT_DIR', __DIR__ . DIRECTORY_SEPARATOR);
+define('APP_DIR', __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR);
+define(
+	'VIEWS_DIR',
+	__DIR__ . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR
+);
+define('HELPERS_DIR', APP_DIR . 'helpers' . DIRECTORY_SEPARATOR);
+define('SETUP_DIR', APP_DIR . 'setup' . DIRECTORY_SEPARATOR);
+
 
 /**
  * Define a content width for the theme.
  *
  * @link https://developer.wordpress.com/themes/content-width/
  */
-if ( ! isset( $content_width ) ) {
+if ( ! isset($content_width)) {
 	$content_width = 1080;
 }
 
 // Make sure we can load a compatible version of WP Emerge.
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'version.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR
+             . 'version.php';
 
-$name = trim( get_file_data( __DIR__ . DIRECTORY_SEPARATOR . 'style.css', [ 'Theme Name' ] )[0] );
-$load = my_app_should_load_wpemerge( $name, '0.16.0', '2.0.0' );
+$name = trim(
+	get_file_data(
+		__DIR__ . DIRECTORY_SEPARATOR . 'style.css',
+		['Theme Name']
+	)[0]
+);
+$load = my_app_should_load_wpemerge($name, '0.16.0', '2.0.0');
 
-if ( ! $load ) {
+if ( ! $load) {
 	// An incompatible WP Emerge version is already loaded - stop further execution.
 	// my_app_should_load_wpemerge() will automatically add an admin notice.
 	return;
 }
 
 // Load composer dependencies.
-if ( file_exists( __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php' ) ) {
-	require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+if (file_exists(
+	__DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR
+	. 'autoload.php'
+)
+) {
+	require_once __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR
+	             . 'autoload.php';
 }
 
-my_app_declare_loaded_wpemerge( $name, 'theme', __FILE__ );
+my_app_declare_loaded_wpemerge($name, 'theme', __FILE__);
 
 // Load helpers.
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'MyApp.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'src'
+             . DIRECTORY_SEPARATOR . 'MyApp.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR
+             . 'helpers.php';
 
 // Bootstrap theme after all dependencies and helpers are loaded.
-\MyApp::make()->bootstrap( require __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'config.php' );
+\MyApp::make()->bootstrap(
+	require __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR
+	        . 'config.php'
+);
 
 // Register hooks.
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'hooks.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR
+             . 'hooks.php';
