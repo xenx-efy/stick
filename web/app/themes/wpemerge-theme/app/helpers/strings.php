@@ -14,5 +14,5 @@ function app_only_words(string $filename): string
 
 function app_remove_file_extension(string $filename): string
 {
-	return trim(preg_replace('/\.[^.]+$/', '', $filename));
+	return trim(preg_replace('/\.[^.]+/', '', $filename));
 }

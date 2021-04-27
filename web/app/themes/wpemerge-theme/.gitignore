@@ -2,6 +2,7 @@
 /dist/
 /resources/styles/frontend/_sprite.scss
 /resources/styles/*.config.scss
+/views/views-cache/
 
 # Development files
 /config.json

@@ -24,6 +24,8 @@ define(
 	'VIEWS_DIR',
 	__DIR__ . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR
 );
+define('BLOCKS_DIR', VIEWS_DIR . 'blocks' . DIRECTORY_SEPARATOR);
+
 define('HELPERS_DIR', APP_DIR . 'helpers' . DIRECTORY_SEPARATOR);
 define('SETUP_DIR', APP_DIR . 'setup' . DIRECTORY_SEPARATOR);
 

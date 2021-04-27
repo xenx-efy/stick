@@ -122,15 +122,14 @@ return [
 	 * Use absolute paths or leave blank to disable.
 	 * Applies only to the default PhpViewEngine.
 	 */
-//	'views' => [],
+	'views'               => [],
 
 	'blade'    => [
 		'replace_default_engine' => true,
 		'proxy_php_views'        => true,
 		'filter_core_templates'  => true,
 		'options'                => [
-			'cache' => get_stylesheet_directory() . DIRECTORY_SEPARATOR
-			           . 'blade-cache',
+			'cache' => VIEWS_DIR . 'views-cache',
 		],
 	],
 
