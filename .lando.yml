@@ -21,6 +21,7 @@ services:
     build:
       - composer install
       - cp .env.example .env
+      - cd ./web/app/themes/app-theme/ && composer install && npm install && cp config.json.dist config.json
     build_as_root:
       - curl -sL https://deb.nodesource.com/setup_14.x | bash -
       - apt-get install -y nodejs

@@ -1,0 +1,25 @@
+/**
+ * Color palette.
+ *
+ * @see resources/styles/shared/_variables.scss
+ */
+@each $name, $value in $color {
+  .has-#{$name}-color {
+    color: $value;
+  }
+
+  .has-#{$name}-background-color {
+    background-color: $value;
+  }
+}
+
+/**
+ * Font sizes.
+ *
+ * @see resources/styles/shared/_variables.scss
+ */
+@each $name, $value in $font-size {
+  .has-#{$name}-font-size {
+    font-size: $value;
+  }
+}
