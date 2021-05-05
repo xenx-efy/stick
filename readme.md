@@ -6,6 +6,11 @@
 - [docker-compose](https://docs.docker.com/compose/install/)
 - [lando](https://docs.lando.dev/basics/installation.html)
 
+## Installation
+1. Run `lando start` in project root directory;
+2. Go into theme directory and run `lando composer install && lando npm install`;
+3. Copy and rename `config.json.dist` into `config.json`.
+
 ## Xdebug
 
 - `lando xdebug <mode>` - load [Xdebug](https://xdebug.org/) in the selected, run it for enable xdebug
