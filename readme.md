@@ -10,6 +10,7 @@
 1. Run `lando start` in project root directory;
 2. Go into theme directory and run `lando composer install && lando npm install`;
 3. Copy and rename `config.json.dist` into `config.json`.
+> If you want rename all application classes and project mentioning you can run `lando npm run rebrand` and follow instructions
 
 ## Xdebug
 
