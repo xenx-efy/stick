@@ -7,9 +7,7 @@
 - [lando](https://docs.lando.dev/basics/installation.html)
 
 ## Installation
-1. Run `lando start` in project root directory;
-2. Go into theme directory and run `lando composer install && lando npm install`;
-3. Copy and rename `config.json.dist` into `config.json`.
+Run `lando start` in project root directory.
 > If you want rename all application classes and project mentioning you can run `lando npm run rebrand` and follow instructions
 
 ## Xdebug
@@ -26,3 +24,7 @@ extension for your browser.
 > Or make sure it is not blocked by the firewall.
 
 **Source [link](https://github.com/lando/lando/issues/1668#issuecomment-772829423) on setup**
+
+#### Sources
+
+- [WP Emerge docs](https://docs.wpemerge.com/#/)
