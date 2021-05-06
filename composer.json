@@ -1,21 +1,8 @@
 {
-  "name": "roots/bedrock",
+  "name": "xenx/stick",
   "type": "project",
   "license": "MIT",
-  "description": "WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure",
-  "homepage": "https://roots.io/bedrock/",
-  "authors": [
-    {
-      "name": "Scott Walkinshaw",
-      "email": "scott.walkinshaw@gmail.com",
-      "homepage": "https://github.com/swalkinshaw"
-    },
-    {
-      "name": "Ben Word",
-      "email": "ben@benword.com",
-      "homepage": "https://github.com/retlehs"
-    }
-  ],
+  "description": "WordPress boilerplate based on wpemerge starter theme",
   "keywords": [
     "bedrock",
     "composer",
