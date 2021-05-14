@@ -6,17 +6,16 @@
  * @package MyApp
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( ! defined('ABSPATH')) {
 	exit;
 }
 
-// Load helpers.
+$dirs = new DirectoryIterator(HELPERS_DIR);
 
-$helpers = glob( HELPERS_DIR . '*.php' );
-foreach ( $helpers as $helper ) {
-	if ( ! is_file( $helper ) ) {
+foreach ($dirs as $dir) {
+	if ( ! $dir->isFile()) {
 		continue;
 	}
 
-	require $helper;
+	require $dir->getPathname();
 }
