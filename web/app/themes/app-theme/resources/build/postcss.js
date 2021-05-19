@@ -10,7 +10,9 @@ const plugins = [
   require('tailwindcss')(utils.srcPath('build/tailwindcss.js')),
   require('postcss-discard-comments'),
   require('autoprefixer'),
-  require('./lib/combine-media-queries'),
+
+  // please read about below lib: https://www.npmjs.com/package/postcss-combine-media-query
+  // require('./lib/combine-media-queries'),
 ];
 
 /**
