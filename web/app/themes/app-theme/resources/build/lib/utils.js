@@ -3,7 +3,6 @@
  */
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const pick = require('lodash/pick');
 
 /**
@@ -53,26 +52,27 @@ module.exports.distFontsPath = destPath =>
 module.exports.tests = {
   scripts: /\.(js|jsx)$/,
   styles: /\.(css|scss|sass)$/,
-  spriteSvgs: /(resources|dist|node_modules)[\\/]images[\\/]sprite-svg[\\/].*\.svg$/,
-  images: /(resources|dist|node_modules)[\\/](?!images[\\/]sprite-svg|fonts).*\.(ico|jpg|jpeg|png|svg|gif)$/,
-  fonts: /(resources|dist|node_modules)[\\/](?!images[\\/]sprite-svg).*\.(eot|svg|ttf|woff|woff2)$/,
+  svgs: /\.svg$/,
+  images: /\.(ico|jpg|jpeg|png|svg|gif)$/,
+  fonts: /\.(eot|ttf|woff|woff2)$/,
 };
 
 module.exports.detectEnv = () => {
-  const env = process.env.NODE_ENV || 'development';
-  const isDev = env === 'development';
-  const isHot = env === 'hot';
-  const isDebug = env === 'debug';
-  const isProduction = env === 'production';
+  const nodeEnv = process.env.NODE_ENV || 'development';
+  const wpemergeEnv = process.env.WPEMERGE_ENV || '';
+  const isCombined = !!process.env.WPEMERGE_COMBINED_BUILD;
+  const isDevelopment = nodeEnv === 'development';
+  const isHot = wpemergeEnv === 'hot';
+  const isProduction = nodeEnv === 'production';
+  const isDebug = wpemergeEnv === 'debug';
 
   return {
-    env,
-    isDev,
+    isCombined,
+    isDevelopment,
     isHot,
-    isDebug,
     isProduction,
-    minify: isProduction,
-    filenameSuffix: isDev || isProduction ? '.min' : '',
+    isDebug,
+    filenameSuffix: isProduction && !isDebug ? '.min' : '',
   };
 };
 
@@ -107,8 +107,21 @@ module.exports.getUserConfig = (file, whitelisted = false) => {
   return userConfig;
 };
 
-module.exports.filehash = (file) => {
-  const hash = crypto.createHash('sha1');
-  hash.update(fs.readFileSync(file));
-  return hash.digest('hex');
+module.exports.assetFilename = (relativeTo = null) => (file) => {
+  const resourcesDir = path.normalize(exports.srcPath()) + path.sep;
+  const nodeModulesDir = path.normalize(path.join(exports.rootPath(), 'node_modules')) + path.sep;
+  const isResourceFile = path.normalize(file).substr(0, resourcesDir.length) === resourcesDir;
+  const isVendorFile = path.normalize(file).substr(0, nodeModulesDir.length) === nodeModulesDir;
+  let filepath = '';
+
+  if (isVendorFile) {
+    filepath = 'vendor/';
+  } else if (isResourceFile) {
+    if (relativeTo !== null) {
+      filepath = path.relative(relativeTo, path.dirname(file));
+      filepath = filepath ? `${filepath}/` : '';
+    }
+  }
+
+  return `${filepath}[name].[contenthash:10].[ext]`;
 };
