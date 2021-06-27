@@ -5,7 +5,7 @@ const { ProvidePlugin, WatchIgnorePlugin } = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const ManifestPlugin = require('webpack-manifest-plugin');
+const ManifestPlugin = require('webpack-assets-manifest');
 
 /**
  * The internal dependencies.
@@ -90,7 +90,7 @@ const plugins = [
 ];
 
 // When doing a combined build, only clean up the first time.
-if (process.env.WPEMERGE_COMBINED_BUILD && env.isDebug) {
+if (env.isCombined && env.isDebug) {
   plugins.push(new CleanWebpackPlugin(utils.distPath(), {
     root: utils.rootPath(),
   }));
@@ -167,7 +167,9 @@ module.exports = {
           'css-loader',
           {
             loader: 'postcss-loader',
-            options: postcss,
+            options: {
+              postcssOptions: postcss,
+            },
           },
           {
             loader: 'sass-loader',
@@ -185,11 +187,14 @@ module.exports = {
        */
       {
         test: utils.tests.images,
+        exclude: [
+          utils.srcImagesPath('sprite-svg'),
+        ],
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: file => `[name].${utils.filehash(file).substr(0, 10)}.[ext]`,
+              name: utils.assetFilename(utils.srcImagesPath()),
               outputPath: 'images',
             },
           },
@@ -200,7 +205,10 @@ module.exports = {
        * Handle SVG sprites.
        */
       {
-        test: utils.tests.spriteSvgs,
+        test: utils.tests.svgs,
+        include: [
+          utils.srcImagesPath('sprite-svg'),
+        ],
         use: [
           {
             loader: 'svg-sprite-loader',
@@ -221,7 +229,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: file => `[name].${utils.filehash(file).substr(0, 10)}.[ext]`,
+              name: utils.assetFilename(utils.srcFontsPath()),
               outputPath: 'fonts',
             },
           },
@@ -239,7 +247,7 @@ module.exports = {
    * Setup optimizations.
    */
   optimization: {
-    minimize: env.minify,
+    minimize: !env.isDebug,
   },
 
   /**
