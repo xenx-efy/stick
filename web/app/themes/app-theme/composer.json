@@ -14,7 +14,8 @@
     "php": ">=5.5",
     "composer/installers": "^1.4",
     "htmlburger/wpemerge": "~0.16.0",
-    "htmlburger/wpemerge-app-core": "~0.16.1"
+    "htmlburger/wpemerge-app-core": "~0.16.1",
+    "htmlburger/wpemerge-blade": "^0.16.1"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
