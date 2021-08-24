@@ -2,6 +2,7 @@
 
 namespace MyApp\View;
 
+use MyApp\ViewComposers\ExampleViewComposer;
 use WPEmerge\ServiceProviders\ServiceProviderInterface;
 
 /**
@@ -51,6 +52,6 @@ class ViewServiceProvider implements ServiceProviderInterface {
 		 * @link https://docs.wpemerge.com/#/framework/views/view-composers
 		 */
 		// phpcs:ignore
-		// \MyApp::views()->addComposer( 'views/partials/foo', 'FooPartialViewComposer' );
+		 \MyApp::views()->addComposer( 'views/blocks/example', ExampleViewComposer::class);
 	}
 }
