@@ -129,6 +129,7 @@ return [
 		'proxy_php_views'        => true,
 		'filter_core_templates'  => true,
 		'options'                => [
+			'views' => [ get_stylesheet_directory(), get_template_directory() ],
 			'cache' => VIEWS_DIR . 'views-cache',
 		],
 	],

@@ -4,9 +4,6 @@
 /resources/styles/*.config.scss
 /views/views-cache/
 
-# Development files
-/config.json
-
 # Build modules
 /node_modules/
 
