@@ -30,9 +30,10 @@ const babelLoader = {
     cacheDirectory: false,
     comments: false,
     presets: [
-      'env',
-      // airbnb not included as stage-2 already covers it
-      'stage-2',
+      '@babel/preset-env',
+    ],
+    plugins: [
+      '@babel/transform-runtime',
     ],
   },
 };

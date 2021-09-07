@@ -15,4 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Using our ExampleController to handle a custom ajax action, for example.
 // phpcs:ignore
-// \MyApp::route()->get()->where( 'ajax', 'my-custom-ajax-action' )->handle( 'ExampleController@ajax' );
+\MyApp::route()->post()->where( 'ajax', 'post-request' )->handle(
+	'ExampleAjaxController@postRequest'
+);
+\MyApp::route()->get()->where( 'ajax', 'get-request' )->handle( 'ExampleAjaxController@getRequest' );

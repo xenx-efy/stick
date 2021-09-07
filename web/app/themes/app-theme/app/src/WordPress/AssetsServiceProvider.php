@@ -53,6 +53,13 @@ class AssetsServiceProvider implements ServiceProviderInterface
 			true
 		);
 
+		// Add ajax url on frontend
+		wp_localize_script( 'theme-js-bundle', 'myajax',
+			array(
+				'url' => admin_url('admin-ajax.php')
+			)
+		);
+
 		// Enqueue styles.
 		$style = \MyApp::core()->assets()->getBundleUrl( 'frontend', '.css' );
 
