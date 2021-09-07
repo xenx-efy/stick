@@ -6,5 +6,5 @@
 	 * Category: new
 	 */
 
-echo $foo;
+var_dump(gf('image2'));
 @endphp
